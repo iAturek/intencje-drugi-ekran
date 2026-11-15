@@ -1,20 +1,44 @@
+
 package com.example.intencje_drugi_ekran;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Random;
-
 public class SummaryActivity extends AppCompatActivity {
+
+    public static final String EXTRA_NAME = "com.example.intencje_drugi_ekran.NAME";
+    public static final String EXTRA_EMAIL = "com.example.intencje_drugi_ekran.EMAIL";
+    public static final String EXTRA_COURSE = "com.example.intencje_drugi_ekran.COURSE";
+    public static final String EXTRA_LEVEL = "com.example.intencje_drugi_ekran.LEVEL";
+    public static final String EXTRA_NEWSLETTER = "com.example.intencje_drugi_ekran.NEWSLETTER";
+
+    private TextView tvSummary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
+
+        tvSummary = findViewById(R.id.tvSummary);
+        tvSummary.setText(buildSummary());
+    }
+
+    private String buildSummary() {
+        Intent intent = getIntent();
+
+        String name = intent.getStringExtra(EXTRA_NAME);
+        String email = intent.getStringExtra(EXTRA_EMAIL);
+        String course = intent.getStringExtra(EXTRA_COURSE);
+        int level = intent.getIntExtra(EXTRA_LEVEL, 0);
+        boolean newsletter = intent.getBooleanExtra(EXTRA_NEWSLETTER, false);
+
+        String newsletterText = newsletter
+                ? getString(R.string.yes_short)
+                : getString(R.string.no_short);
+
+        return getString(R.string.summary_format, name, email, course, level, newsletterText);
     }
 }
