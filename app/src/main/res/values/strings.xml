@@ -1,30 +1,37 @@
-
 <resources>
-    <string name="app_name">Zamowienie pizzy</string>
+    <string name="app_name">Losowy wybór</string>
 
-    <string name="header_form">Zamów pizzę</string>
-    <string name="label_size">Wybierz rozmiar:</string>
-    <string name="label_toppings">Wybierz dodatki:</string>
-    <string name="label_address">Adres dostawy:</string>
-    <string name="hint_address">Wpisz adres</string>
+    <!-- Losowy wybór -->
+    <string name="header_main">Losowy wybór</string>
+    <string name="hint_entry">Wpisz element</string>
+    <string name="btn_add">DODAJ</string>
+    <string name="label_list">Lista wpisów:</string>
+    <string name="btn_draw">LOSUJ</string>
 
-    <string name="topping_cheese">Ser</string>
-    <string name="topping_ham">Szynka</string>
-    <string name="topping_mushrooms">Pieczarki</string>
+    <string name="header_draw">Wylosowany wpis</string>
+    <string name="btn_again">LOSUJ PONOWNIE</string>
+    <string name="btn_choose">WYBIERAM TO</string>
 
-    <string name="btn_next">DALEJ</string>
-    <string name="btn_about">O APLIKACJI</string>
-
+    <!-- Poprzednie zadanie: pizza -->
     <string name="header_summary">Podsumowanie zamówienia</string>
     <string name="btn_edit">POPRAW DANE</string>
     <string name="btn_confirm">POTWIERDŹ</string>
     <string name="btn_share">UDOSTĘPNIJ ZAMÓWIENIE</string>
-
     <string name="share_via">Udostępnij przez</string>
     <string name="error_no_app">Brak aplikacji do udostępniania</string>
 
     <string name="about_header">O aplikacji</string>
     <string name="about_text">Aplikacja umożliwia zamawianie pizzy. Możesz wybrać rozmiar, dodatki i adres dostawy.</string>
+
+    <string name="label_size">Wybierz rozmiar:</string>
+    <string name="label_toppings">Wybierz dodatki:</string>
+    <string name="label_address">Adres dostawy:</string>
+    <string name="hint_address">Wpisz adres</string>
+    <string name="topping_cheese">Ser</string>
+    <string name="topping_ham">Szynka</string>
+    <string name="topping_mushrooms">Pieczarki</string>
+    <string name="btn_next">DALEJ</string>
+    <string name="btn_about">O APLIKACJI</string>
 
     <string-array name="pizza_sizes">
         <item>Mała</item>

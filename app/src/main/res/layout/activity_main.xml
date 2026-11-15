@@ -1,75 +1,56 @@
-
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="40dp"
     android:paddingStart="20dp"
     android:paddingEnd="20dp"
+    android:paddingTop="40dp"
     android:paddingBottom="20dp">
 
     <TextView
-        android:id="@+id/tvHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/header_form"
-        android:textSize="24sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/label_size" />
-
-    <Spinner
-        android:id="@+id/spSize"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/label_toppings" />
-
-    <CheckBox
-        android:id="@+id/cbCheese"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/topping_cheese" />
-
-    <CheckBox
-        android:id="@+id/cbHam"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/topping_ham" />
-
-    <CheckBox
-        android:id="@+id/cbMushrooms"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/topping_mushrooms" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/label_address" />
+        android:text="@string/header_main"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="20dp" />
 
     <EditText
-        android:id="@+id/etAddress"
+        android:id="@+id/etEntry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_address" />
+        android:hint="@string/hint_entry"
+        android:inputType="text"
+        android:layout_marginBottom="10dp" />
 
     <Button
-        android:id="@+id/btnNext"
+        android:id="@+id/btnAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btn_next" />
+        android:text="@string/btn_add" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/label_list"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:id="@+id/tvList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginTop="10dp" />
 
     <Button
-        android:id="@+id/btnAbout"
+        android:id="@+id/btnDraw"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btn_about" />
+        android:text="@string/btn_draw"
+        android:layout_marginTop="20dp" />
 
 </LinearLayout>

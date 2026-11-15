@@ -1,138 +1,102 @@
-
 package com.example.intencje_drugi_ekran;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private EditText etEntry;
+    private TextView tvList;
+    private ArrayList<String> entries;
 
-    private ActivityResultLauncher<Intent> summaryLauncher;
-
-    private Spinner spSize;
-    private CheckBox cbCheese, cbHam, cbMushrooms;
-    private EditText etAddress;
+    private ActivityResultLauncher<Intent> drawLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d(TAG, "onCreate");
+        etEntry = findViewById(R.id.etEntry);
+        tvList = findViewById(R.id.tvList);
 
-        summaryLauncher = registerForActivityResult(
+        Button btnAdd = findViewById(R.id.btnAdd);
+        Button btnDraw = findViewById(R.id.btnDraw);
+
+        entries = new ArrayList<>();
+
+        drawLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
-                    if (result.getResultCode() == RESULT_OK
-                            && result.getData() != null) {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent data = result.getData();
 
-                        String number = result.getData().getStringExtra(
-                                SummaryActivity.EXTRA_NUMBER
-                        );
+                        if (data != null) {
+                            String selectedEntry = data.getStringExtra("selectedEntry");
 
-                        showRegistered(number);
-
-                    } else if (result.getResultCode() == RESULT_CANCELED) {
-
-                        Snackbar.make(
-                                findViewById(R.id.btnNext),
-                                "Zamówienie anulowane lub wymaga poprawy",
-                                Snackbar.LENGTH_LONG
-                        ).show();
+                            if (selectedEntry != null) {
+                                Snackbar.make(
+                                        findViewById(android.R.id.content),
+                                        "Wybrano: " + selectedEntry,
+                                        Snackbar.LENGTH_LONG
+                                ).show();
+                            }
+                        }
                     }
                 }
         );
 
-        spSize = findViewById(R.id.spSize);
-        cbCheese = findViewById(R.id.cbCheese);
-        cbHam = findViewById(R.id.cbHam);
-        cbMushrooms = findViewById(R.id.cbMushrooms);
-        etAddress = findViewById(R.id.etAddress);
-
-        setUpSizeSpinner();
-
-        Button btnNext = findViewById(R.id.btnNext);
-        btnNext.setOnClickListener(v -> openSummary());
-
-        Button btnAbout = findViewById(R.id.btnAbout);
-        btnAbout.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, AboutActivity.class);
-            startActivity(intent);
-        });
+        btnAdd.setOnClickListener(v -> addEntry());
+        btnDraw.setOnClickListener(v -> openDraw());
     }
 
-    private void setUpSizeSpinner() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this,
-                R.array.pizza_sizes,
-                android.R.layout.simple_spinner_item
-        );
+    private void addEntry() {
+        String entry = etEntry.getText().toString().trim();
 
-        adapter.setDropDownViewResource(
-                android.R.layout.simple_spinner_dropdown_item
-        );
-
-        spSize.setAdapter(adapter);
-    }
-
-    private void openSummary() {
-
-        String address = etAddress.getText().toString().trim();
-
-        if (address.isEmpty()) {
-            etAddress.setError("Wpisz adres dostawy");
+        if (entry.isEmpty()) {
+            etEntry.setError("Wpisz coś");
             return;
         }
 
-        Intent intent = new Intent(MainActivity.this, SummaryActivity.class);
+        entries.add(entry);
+        etEntry.setText("");
 
-        intent.putExtra(SummaryActivity.EXTRA_SIZE,
-                spSize.getSelectedItem().toString());
+        String list = "";
 
-        intent.putExtra(SummaryActivity.EXTRA_CHEESE,
-                cbCheese.isChecked());
+        for (int i = 0; i < entries.size(); i++) {
+            list += (i + 1) + ". " + entries.get(i) + "\n";
+        }
 
-        intent.putExtra(SummaryActivity.EXTRA_HAM,
-                cbHam.isChecked());
-
-        intent.putExtra(SummaryActivity.EXTRA_MUSHROOMS,
-                cbMushrooms.isChecked());
-
-        intent.putExtra(SummaryActivity.EXTRA_ADDRESS, address);
-
-        summaryLauncher.launch(intent);
+        tvList.setText(list);
     }
 
-    private void showRegistered(String number) {
-        Snackbar.make(
-                findViewById(R.id.btnNext),
-                "Zamówienie przyjęte: " + number,
-                Snackbar.LENGTH_LONG
-        ).show();
-    }
+    private void openDraw() {
+        if (entries.isEmpty()) {
+            Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "Najpierw dodaj przynajmniej jeden wpis",
+                    Snackbar.LENGTH_LONG
+            ).show();
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop");
-    }
+            return;
+        }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy");
+        Intent intent = new Intent(MainActivity.this, DrawActivity.class);
+
+        String[] entriesArray = entries.toArray(new String[0]);
+
+        intent.putExtra("entries", entriesArray);
+
+        drawLauncher.launch(intent);
     }
 }

@@ -21,13 +21,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<!--        <activity-->
+<!--            android:name=".SummaryActivity"-->
+<!--            android:exported="false"-->
+<!--            android:parentActivityName=".MainActivity"-->
+<!--            android:windowSoftInputMode="adjustResize" />-->
+<!--        <activity-->
+<!--            android:name=".AboutActivity"-->
+<!--            android:exported="false"-->
+<!--            android:windowSoftInputMode="adjustResize" />-->
         <activity
-            android:name=".SummaryActivity"
-            android:exported="false"
-            android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".AboutActivity"
+            android:name=".DrawActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
