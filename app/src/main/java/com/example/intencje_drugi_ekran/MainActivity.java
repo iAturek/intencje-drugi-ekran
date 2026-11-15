@@ -1,3 +1,4 @@
+
 package com.example.intencje_drugi_ekran;
 
 import android.content.Intent;
@@ -38,6 +39,14 @@ public class MainActivity extends AppCompatActivity {
                         );
 
                         showRegistered(number);
+
+                    } else if (result.getResultCode() == RESULT_CANCELED) {
+
+                        Snackbar.make(
+                                findViewById(R.id.btnNext),
+                                "Zamówienie anulowane lub wymaga poprawy",
+                                Snackbar.LENGTH_LONG
+                        ).show();
                     }
                 }
         );
@@ -69,6 +78,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openSummary() {
+
+        String address = etAddress.getText().toString().trim();
+
+        if (address.isEmpty()) {
+            etAddress.setError("Wpisz adres dostawy");
+            return;
+        }
+
         Intent intent = new Intent(MainActivity.this, SummaryActivity.class);
 
         intent.putExtra(SummaryActivity.EXTRA_SIZE,
@@ -83,8 +100,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(SummaryActivity.EXTRA_MUSHROOMS,
                 cbMushrooms.isChecked());
 
-        intent.putExtra(SummaryActivity.EXTRA_ADDRESS,
-                etAddress.getText().toString());
+        intent.putExtra(SummaryActivity.EXTRA_ADDRESS, address);
 
         summaryLauncher.launch(intent);
     }
