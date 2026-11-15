@@ -1,9 +1,11 @@
 
 package com.example.intencje_drugi_ekran;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,6 +32,7 @@ public class SummaryActivity extends AppCompatActivity {
 
         findViewById(R.id.btnConfirm).setOnClickListener(v -> confirm());
         findViewById(R.id.btnEdit).setOnClickListener(v -> finish());
+        findViewById(R.id.btnShare).setOnClickListener(v -> share());
     }
 
     private String buildSummary() {
@@ -55,5 +58,17 @@ public class SummaryActivity extends AppCompatActivity {
         result.putExtra(EXTRA_NUMBER, number);
         setResult(RESULT_OK, result);
         finish();
+    }
+
+    private void share() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, tvSummary.getText().toString());
+
+        try {
+            startActivity(Intent.createChooser(intent, getString(R.string.share_via)));
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, R.string.error_no_app, Toast.LENGTH_SHORT).show();
+        }
     }
 }
