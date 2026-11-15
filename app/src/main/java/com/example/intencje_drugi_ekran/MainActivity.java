@@ -9,8 +9,14 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+
+import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ActivityResultLauncher<Intent> summaryLauncher;
 
     private Spinner spSize;
     private CheckBox cbCheese, cbHam, cbMushrooms;
@@ -20,6 +26,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        summaryLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK
+                            && result.getData() != null) {
+
+                        String number = result.getData().getStringExtra(
+                                SummaryActivity.EXTRA_NUMBER
+                        );
+
+                        showRegistered(number);
+                    }
+                }
+        );
 
         spSize = findViewById(R.id.spSize);
         cbCheese = findViewById(R.id.cbCheese);
@@ -65,6 +86,14 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(SummaryActivity.EXTRA_ADDRESS,
                 etAddress.getText().toString());
 
-        startActivity(intent);
+        summaryLauncher.launch(intent);
+    }
+
+    private void showRegistered(String number) {
+        Snackbar.make(
+                findViewById(R.id.btnNext),
+                "Zamówienie przyjęte: " + number,
+                Snackbar.LENGTH_LONG
+        ).show();
     }
 }

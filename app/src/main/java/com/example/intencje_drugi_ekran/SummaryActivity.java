@@ -1,10 +1,13 @@
 package com.example.intencje_drugi_ekran;
 
 import android.os.Bundle;
+import android.content.Intent;
 import android.widget.TextView;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Random;
 
 public class SummaryActivity extends AppCompatActivity {
 
@@ -13,6 +16,7 @@ public class SummaryActivity extends AppCompatActivity {
     public static final String EXTRA_HAM = "ham";
     public static final String EXTRA_MUSHROOMS = "mushrooms";
     public static final String EXTRA_ADDRESS = "address";
+    public static final String EXTRA_NUMBER = "number";
 
     private TextView tvSummary;
 
@@ -26,7 +30,10 @@ public class SummaryActivity extends AppCompatActivity {
         tvSummary.setText(buildSummary());
 
         Button btnEdit = findViewById(R.id.btnEdit);
+        Button btnConfirm = findViewById(R.id.btnConfirm);
+
         btnEdit.setOnClickListener(v -> finish());
+        btnConfirm.setOnClickListener(v -> confirm());
     }
 
     private String buildSummary() {
@@ -73,5 +80,16 @@ public class SummaryActivity extends AppCompatActivity {
                 + "\nDodatki: " + toppings
                 + "\nAdres: " + address
                 + "\nCena: " + price + " zł";
+    }
+
+    private void confirm() {
+        String number = "PIZ/"
+                + (1000 + new Random().nextInt(9000));
+
+        Intent result = new Intent();
+        result.putExtra(EXTRA_NUMBER, number);
+
+        setResult(RESULT_OK, result);
+        finish();
     }
 }
