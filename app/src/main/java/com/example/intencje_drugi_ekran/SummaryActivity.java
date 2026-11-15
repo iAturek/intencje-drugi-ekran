@@ -4,6 +4,7 @@ package com.example.intencje_drugi_ekran;
 import android.os.Bundle;
 import android.content.Intent;
 import android.content.ActivityNotFoundException;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
@@ -13,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Random;
 
 public class SummaryActivity extends AppCompatActivity {
+
+    private static final String TAG = "SummaryActivity";
 
     public static final String EXTRA_SIZE = "size";
     public static final String EXTRA_CHEESE = "cheese";
@@ -27,6 +30,8 @@ public class SummaryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
+
+        Log.d(TAG, "onCreate");
 
         tvSummary = findViewById(R.id.tvSummary);
 
@@ -120,5 +125,17 @@ public class SummaryActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT
             ).show();
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
     }
 }

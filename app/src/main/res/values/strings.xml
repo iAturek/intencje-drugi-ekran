@@ -13,6 +13,7 @@
     <string name="topping_mushrooms">Pieczarki</string>
 
     <string name="btn_next">DALEJ</string>
+    <string name="btn_about">O APLIKACJI</string>
 
     <string name="header_summary">Podsumowanie zamówienia</string>
     <string name="btn_edit">POPRAW DANE</string>
@@ -21,6 +22,9 @@
 
     <string name="share_via">Udostępnij przez</string>
     <string name="error_no_app">Brak aplikacji do udostępniania</string>
+
+    <string name="about_header">O aplikacji</string>
+    <string name="about_text">Aplikacja umożliwia zamawianie pizzy. Możesz wybrać rozmiar, dodatki i adres dostawy.</string>
 
     <string-array name="pizza_sizes">
         <item>Mała</item>

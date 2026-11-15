@@ -3,6 +3,7 @@ package com.example.intencje_drugi_ekran;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,6 +18,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
+
     private ActivityResultLauncher<Intent> summaryLauncher;
 
     private Spinner spSize;
@@ -27,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Log.d(TAG, "onCreate");
 
         summaryLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -61,6 +66,12 @@ public class MainActivity extends AppCompatActivity {
 
         Button btnNext = findViewById(R.id.btnNext);
         btnNext.setOnClickListener(v -> openSummary());
+
+        Button btnAbout = findViewById(R.id.btnAbout);
+        btnAbout.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void setUpSizeSpinner() {
@@ -111,5 +122,17 @@ public class MainActivity extends AppCompatActivity {
                 "Zamówienie przyjęte: " + number,
                 Snackbar.LENGTH_LONG
         ).show();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
     }
 }
